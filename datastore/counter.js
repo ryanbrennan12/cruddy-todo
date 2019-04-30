@@ -26,9 +26,9 @@ const readCounter = (callback) => {
   // same as fs.readFile(path.join(__dirname, 'counter.txt'))
   fs.readFile(exports.counterFile, (err, fileData) => {
     if (err) {
-      callback(null, 0);
+      callback(0, null);
     } else {
-      callback(null, Number(fileData));
+      callback(Number(fileData), null);
     }
   });
 };
@@ -50,9 +50,14 @@ const writeCounter = (count, callback) => {
 
 exports.getNextUniqueId = () => {
   //first we want to write bc as of now that file does not exist, then we want to write
-  writeCounter(counter, (data) => {
-    console.log('data from ', data);
+
+  readCounter((number) => {
+    console.log('hey our num', number);
   });
+
+  // writeCounter(counter, (data) => {
+
+  // });
 
 
   counter = counter + 1;

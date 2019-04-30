@@ -26,7 +26,7 @@ describe('getNextUniqueId', () => {
   beforeEach(initializeTestCounter);
   beforeEach(cleanTestDatastore);
 
-  it('should use error first callback pattern', (done) => {
+  it.only('should use error first callback pattern', (done) => {
     counter.getNextUniqueId((err, id) => {
       expect(err).to.be.null;
       expect(id).to.exist;
