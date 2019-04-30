@@ -28,7 +28,7 @@ const readCounter = (callback) => {
     if (err) {
       callback(0, null);
     } else {
-      callback(Number(fileData), null);
+      callback(null, Number(fileData));
     }
   });
 };
@@ -41,27 +41,22 @@ const writeCounter = (count, callback) => {
       throw ('error writing counter');
     } else {
       console.log('counterstring', counterString);
-      callback(counterString, null);
+      callback(null, counterString);
     }
   });
 };
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = () => {
-  //first we want to write bc as of now that file does not exist, then we want to write
+exports.getNextUniqueId = (callback) => {
 
-  readCounter((number) => {
-    console.log('hey our num', number);
+  readCounter((err, count) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      writeCounter(count + 1, callback);
+    }
   });
-
-  // writeCounter(counter, (data) => {
-
-  // });
-
-
-  counter = counter + 1;
-  return zeroPaddedNumber(counter);
 };
 
 
